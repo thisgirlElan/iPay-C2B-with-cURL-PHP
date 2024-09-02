@@ -5,7 +5,7 @@ iPay C2B integration with JSON callback rendering, cURL PHP functionality, HTML 
 
 - An interface for the user to key in details.
 - Payment gateway
-- Screen with callback in JSON format
+- Screen with callback in JSON format (It's very down to earth😅)
 
 ## 📋 App Preview
 
