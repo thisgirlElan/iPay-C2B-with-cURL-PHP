@@ -50,6 +50,7 @@ When the server is up and running, open the `index.html` file on your browser.
 - The integration uses a simple HTML form for user input.
 - Scripting has been done with PHP to fetch and render data.
 - A separate PHP file has been used to extract the query params on the callback URL and convert to JSON.
+- If you want to bypass the form filling, simply spin up the process_payment.php file. Amend what's needed from the comments on the file and you should be able to get it up and running.
 
 ## 👨‍💻 You're ready! Make it yours. 
 
