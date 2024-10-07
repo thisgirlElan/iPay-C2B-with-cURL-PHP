@@ -32,7 +32,7 @@ Dependencies (Optional)
 
 `` The ngrok way ``
 
-You can install ngrok from here: [ngrok download](https://ngrok.com/download) and follow the guide (It short and straight-forward).
+You can install ngrok from here: [ngrok download](https://ngrok.com/download) and follow the guide (It's short and straight-forward).
 
 - If you had it installed, simply start your xampp as usual and run the following command to start a tunnel (Pretty sure you knew this already 😉)
 
