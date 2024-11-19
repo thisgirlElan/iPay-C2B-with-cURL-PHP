@@ -5,18 +5,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $eml = $_POST['eml'];
     $curr = $_POST['curr'];
 
-    $oid = substr(md5(uniqid(rand(), true)), 0, 7);
-    $inv = "iPay" . substr(md5(uniqid(rand(), true)), 0, 7);
+    $oid = "iPayLBKTest" . substr(md5(uniqid(rand(), true)), 0, 7);
+    $inv = "iPayLBKTest" . substr(md5(uniqid(rand(), true)), 0, 7);
 
-    $live = "0"; // Set to "1" on prod
+    $live = "1"; // Set to "1" on prod
     $vid = "demo"; // Your vendor ID
-    $cbk = "your-server-url/test_script/payment_callback.php"; // Your callback URL
+    $cbk = "your-url/test_script/payment_callback.php"; // Your callback URL
     $p1 = "";
     $p2 = "";
     $p3 = "";
     $p4 = "";
-    $crl = "2";
-    $cst = "1";
+    $crl = "0";
+    $cst = "0";
+
+    // autopay
+    $autopay = "1";
+    // channels
+    $mpesa = "0";
+    $airtel = "0";
+    $equity = "0";
+    $pesalink = "0";
+    $bonga = "0";
+    $vooma = "0";
+    $unionpay = "0";
+    // to disable card programatically uncomment the below, it will display only the card option by default as it is
+    // $debitcard = '0';
+    // $creditcard = '0';
+    $lbk = "https://www.google.com/";
 
     $fields = array(
         'live' => $live,
@@ -33,19 +48,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'p4' => $p4,
         'cbk' => $cbk,
         'cst' => $cst,
-        'crl' => $crl
+        'crl' => $crl,
     );
 
     $datastring = implode('', $fields);
 
-    $hashkey = "demoCHANGED"; // Change to your API KEY on prod
+    $hashkey = 'demoCHANGED'; // Change to your API KEY on prod
     $generated_hash = hash_hmac('sha1', $datastring, $hashkey);
 
     $fields['hsh'] = $generated_hash;
 
     $postData = http_build_query($fields);
 
-    $actionUrl = "https://payments.ipayafrica.com/v3/ke"; 
+    $actionUrl = "https://payments.ipayafrica.com/v3/ke?autopay={$autopay}&mpesa={$mpesa}&airtel={$airtel}&equity={$equity}&pesalink={$pesalink}&bonga={$bonga}&vooma={$vooma}&unionpay={$unionpay}&lbk={$lbk}";
+
     $ch = curl_init($actionUrl);
 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -60,15 +76,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($response === false) {
         $error = curl_error($ch);
-        echo 'cURL error: ' . htmlspecialchars($error); 
+        echo 'cURL error: ' . htmlspecialchars($error);
     } else {
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $redirectUrl = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
-
-        // if ($http_code == 302) {
-        //     header("Location: $redirectUrl");
-        //     exit();
-        // }
 
         if ($http_code >= 200 && $http_code < 300) {
             header("Location: $redirectUrl");
