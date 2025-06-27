@@ -51,6 +51,8 @@ $postData = http_build_query($fields);
 
 $actionUrl = "https://payments.ipayafrica.com/v3/ke";
 
+// $actionUrl = "https://payments.ipayafrica.com/v3/ke?autopay=1&lbk="link-to-your-site"";
+
 $ch = curl_init($actionUrl);
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
